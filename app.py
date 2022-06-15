@@ -56,7 +56,7 @@ def process_image():
                 render_factor = request.form.getlist('render_factor')[0]
             except:
                 render_factor = 30
-            
+
         else:
             url = request.json["url"]
             download(url, input_path)
@@ -86,7 +86,6 @@ def process_image():
         return {'message': 'input error'}, 400
 
     finally:
-        pass
         clean_all([
             input_path,
             output_path
@@ -97,7 +96,7 @@ if __name__ == '__main__':
     global results_img_directory
     global image_colorizer
     global ALLOWED_EXTENSIONS
-    ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg'])
+    ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
 
     upload_directory = '/data/upload/'
     create_directory(upload_directory)

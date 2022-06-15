@@ -12,13 +12,11 @@ def run():
         print('Error: Missing password.', file=sys.stderr)
         return
 
-    password = args[0]
-
-    if not password:
-        print('Error: Empty password.', file=sys.stderr)
-    else:
+    if password := args[0]:
         encoded = passwd(password)
         print(encoded)
+    else:
+        print('Error: Empty password.', file=sys.stderr)
 
 
 if __name__ == '__main__':

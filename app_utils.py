@@ -15,31 +15,32 @@ def compress_image(image, path_original):
     height = 1080
 
     name = os.path.basename(path_original).split('.')
-    first_name = os.path.join(os.path.dirname(path_original), name[0] + '.jpg')
+    first_name = os.path.join(os.path.dirname(path_original), f'{name[0]}.jpg')
 
     if image.size[0] > width and image.size[1] > height:
         image.thumbnail(size, Image.ANTIALIAS)
-        image.save(first_name, quality=85)
     elif image.size[0] > width:
         wpercent = (width/float(image.size[0]))
         height = int((float(image.size[1])*float(wpercent)))
         image = image.resize((width,height), PIL.Image.ANTIALIAS)
-        image.save(first_name,quality=85)
     elif image.size[1] > height:
         wpercent = (height/float(image.size[1]))
         width = int((float(image.size[0])*float(wpercent)))
         image = image.resize((width,height), Image.ANTIALIAS)
-        image.save(first_name, quality=85)
-    else:
-        image.save(first_name, quality=85)
+    image.save(first_name, quality=85)
 
 
 def convertToJPG(path_original):
     img = Image.open(path_original)
     name = os.path.basename(path_original).split('.')
-    first_name = os.path.join(os.path.dirname(path_original), name[0] + '.jpg')
+    first_name = os.path.join(os.path.dirname(path_original), f'{name[0]}.jpg')
 
-    if img.format == "JPEG":
+    if (
+        img.format == "JPEG"
+        or img.format != "GIF"
+        and img.format != "PNG"
+        and img.format == "BMP"
+    ):
         image = img.convert('RGB')
         compress_image(image, path_original)
         img.close()
@@ -59,12 +60,7 @@ def convertToJPG(path_original):
         except ValueError:
             image = img.convert('RGB')
             compress_image(image, path_original)
-        
-        img.close()
 
-    elif img.format == "BMP":
-        image = img.convert('RGB')
-        compress_image(image, path_original)
         img.close()
 
 
@@ -91,7 +87,7 @@ def download(url, filename):
 
 def generate_random_filename(upload_directory, extension):
     filename = str(uuid4())
-    filename = os.path.join(upload_directory, filename + "." + extension)
+    filename = os.path.join(upload_directory, f"{filename}.{extension}")
     return filename
 
 
@@ -112,7 +108,7 @@ def create_directory(path):
 def get_model_bin(url, output_path):
     if not os.path.exists(output_path):
         create_directory(output_path)
-        cmd = "wget -O %s %s" % (output_path, url)
+        cmd = f"wget -O {output_path} {url}"
         print(cmd)
         os.system(cmd)
 

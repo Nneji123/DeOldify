@@ -88,7 +88,7 @@ if __name__ == '__main__':
     global results_video_directory
     global video_colorizer
     global ALLOWED_EXTENSIONS
-    ALLOWED_EXTENSIONS = set(['mp4'])
+    ALLOWED_EXTENSIONS = {'mp4'}
 
     upload_directory = "/data/upload/"
     create_directory(upload_directory)
@@ -102,7 +102,7 @@ if __name__ == '__main__':
     video_model_url = (
         "https://data.deepai.org/deoldify/ColorizeVideo_gen.pth"
     )
-    
+
     get_model_bin(
         video_model_url, os.path.join(model_directory, "ColorizeVideo_gen.pth")
     )

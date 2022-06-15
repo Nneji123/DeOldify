@@ -5,3 +5,10 @@ youtube-dl>=2019.4.17
 opencv-python>=3.3.0.10
 pillow
 tornado~=5.1.0
+h5py==2.10.0
+fastapi
+python-multipart
+gunicorn
+fastapi
+colabcode
+uvicorn==0.13.1

@@ -6,11 +6,7 @@ youtube-dl>=2019.4.17
 jupyterlab
 opencv-python-headless==4.4.0.42
 h5py==2.10.0
-fastapi
-python-multipart
-gunicorn
-numpy==1.21.6
-pillow>=8.0.0
+fastapi[all]
+pillow
 ISR==2.2.0
-uvicorn==0.17.6
 protobuf==3.20.*

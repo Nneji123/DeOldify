@@ -5,15 +5,20 @@ WORKDIR /app
 RUN apt-get -y update  && apt-get install -y \
   python3-dev \
   apt-utils \
+  git \
+  ngrok \
   python-dev \
   build-essential \
 && rm -rf /var/lib/apt/lists/*
 
 RUN pip install --upgrade setuptools
 
-COPY requirements.txt .
-RUN pip install -r requirements.txt
+#COPY requirements.txt .
+
+#RUN pip install -r requirements.txt
 
 COPY . .
 
-CMD gunicorn -w 3 -k uvicorn.workers.UvicornWorker app:app --bind 0.0.0.0:$PORT
+RUN chmod u+x /setup.sh
+
+RUN /setup.sh
